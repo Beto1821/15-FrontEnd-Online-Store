@@ -21,8 +21,7 @@ class Main extends React.Component {
   clickQueryButton = async () => {
     const { query } = this.state;
     const response = await getProductsFromCategoryAndQuery(undefined, query);
-    console.log(response);
-    this.setState(() => ({ produtos: response }));
+    this.setState(() => ({ produtos: response.results }));
   }
 
   render() {
