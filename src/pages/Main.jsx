@@ -8,20 +8,21 @@ class Main extends React.Component {
   state = {
     query: '',
     produtos: [],
+    categoryId: '',
   }
 
   handleChange = ({ target }) => {
     const { name } = target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
 
-    this.setState({
+    this.setState(() => ({
       [name]: value,
-    });
+    }), () => this.clickQueryButton());
   }
 
   clickQueryButton = async () => {
-    const { query } = this.state;
-    const response = await getProductsFromCategoryAndQuery(undefined, query);
+    const { query, categoryId } = this.state;
+    const response = await getProductsFromCategoryAndQuery(categoryId, query);
     this.setState(() => ({ produtos: response.results }));
   }
 
@@ -33,7 +34,7 @@ class Main extends React.Component {
           <p> Digite algum termo de pesquisa ou escolha uma categoria. </p>
         </div>
         <Link to="/Cart" data-testid="shopping-cart-button"> Carrinho de Compras</Link>
-        <Produtos />
+        <Produtos handleChange={ this.handleChange } />
         <input
           data-testid="query-input"
           type="text"
@@ -47,7 +48,6 @@ class Main extends React.Component {
           onClick={ this.clickQueryButton }
         >
           Click
-
         </button>
         { produtos.map((produto, index) => <Card { ...produto } key={ index } />)}
       </div>
