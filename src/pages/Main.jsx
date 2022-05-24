@@ -1,14 +1,54 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { getProductsFromCategoryAndQuery } from '../services/api';
+import Card from '../component/Card';
 
 class Main extends React.Component {
+  state = {
+    query: '',
+    produtos: [],
+  }
+
+  handleChange = ({ target }) => {
+    const { name } = target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+
+    this.setState({
+      [name]: value,
+    });
+  }
+
+  clickQueryButton = async () => {
+    const { query } = this.state;
+    const response = await getProductsFromCategoryAndQuery(undefined, query);
+    console.log(response);
+    this.setState(() => ({ produtos: response }));
+  }
+
   render() {
+    const { query, produtos } = this.state;
     return (
       <div>
         <div data-testid="home-initial-message">
           <p> Digite algum termo de pesquisa ou escolha uma categoria. </p>
         </div>
         <Link to="/Cart" data-testid="shopping-cart-button"> Carrinho de Compras</Link>
+        <input
+          data-testid="query-input"
+          type="text"
+          name="query"
+          onChange={ this.handleChange }
+          value={ query }
+        />
+        <button
+          data-testid="query-button"
+          type="button"
+          onClick={ this.clickQueryButton }
+        >
+          Click
+
+        </button>
+        { produtos.map((produto, index) => <Card { ...produto } key={ index } />)}
       </div>
     );
   }
