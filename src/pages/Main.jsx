@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Produtos from '../components/Produtos';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 import Card from '../component/Card';
 
@@ -32,6 +33,7 @@ class Main extends React.Component {
           <p> Digite algum termo de pesquisa ou escolha uma categoria. </p>
         </div>
         <Link to="/Cart" data-testid="shopping-cart-button"> Carrinho de Compras</Link>
+        <Produtos />
         <input
           data-testid="query-input"
           type="text"
