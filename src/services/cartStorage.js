@@ -1,9 +1,26 @@
 export function getCart() {
-  const products = localStorage.getItem('cart');
-  return products ? products.split(',') : [];
+  const products = JSON.parse(localStorage.getItem('cart'));
+  return products || {};
 }
 
 export function addToCart(product) {
+  const { id } = product;
   const products = getCart();
-  localStorage.setItem('cart', [...products, product]);
+  if (Object.keys(products).some((key) => key === id)) {
+    products[id].amount += 1;
+  } else {
+    product.amount = 1;
+    products[id] = product;
+  }
+  localStorage.setItem('cart', JSON.stringify(products));
+}
+
+export function removeFromCart({ id }, entirely) {
+  const products = getCart();
+  if (entirely) {
+    delete products[id];
+  } else if (products[id].amount > 1) {
+    products[id].amount -= 1;
+  }
+  localStorage.setItem('cart', JSON.stringify(products));
 }
