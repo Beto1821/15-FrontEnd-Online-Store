@@ -9,10 +9,9 @@ class Review extends Component {
   };
 
   componentDidMount = async () => {
-    const { reviews } = this.state;
-    if (reviews instanceof Array) {
-      const rev = JSON.parse(localStorage.getItem('reviews'));
-      this.setState({
+    const rev = JSON.parse(localStorage.getItem('reviews'));
+    if (rev instanceof Array) {
+      return this.setState({
         reviews: rev,
       });
     }
