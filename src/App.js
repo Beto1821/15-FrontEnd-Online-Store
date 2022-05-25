@@ -4,6 +4,7 @@ import './App.css';
 import Main from './pages/Main';
 import Cart from './pages/Cart';
 import ProductDetails from './pages/ProductDetails';
+import Checkout from './pages/Checkout';
 
 class App extends Component {
   render() {
@@ -13,6 +14,7 @@ class App extends Component {
           <Route exact path="/" component={ Main } />
           <Route path="/Cart" component={ Cart } />
           <Route path="/product/details/:id" component={ ProductDetails } />
+          <Route path="/checkout" component={ Checkout } />
         </Switch>
       </BrowserRouter>
     );
