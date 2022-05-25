@@ -8,9 +8,13 @@ class Card extends Component {
     return (
       <div data-testid="product">
         <div>
-          <img src={ thumbnail } alt={ title } width="200"/>
-          <p data-testid="product-detail-name">{ title } { price }</p>
-          <Link to={`/product/details/${id}`} data-testid="product-detail-link">
+          <img src={ thumbnail } alt={ title } width="200" />
+          <p data-testid="product-detail-name">
+            { title }
+            {' '}
+            { price }
+          </p>
+          <Link to={ `/product/details/${id}` } data-testid="product-detail-link">
             Details
           </Link>
         </div>
@@ -23,6 +27,7 @@ Card.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   thumbnail: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
 };
 
 export default Card;

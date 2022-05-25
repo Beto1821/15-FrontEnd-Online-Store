@@ -24,6 +24,6 @@ export async function getProductsFromCategoryAndQuery(categoryId, query) {
 export async function fetchItem(id) {
   const URL = `https://api.mercadolibre.com/items/${id}`;
   return fetch(URL)
-  .then((data) => data.json())
-  .catch((error) => error);
-  }; 
+    .then((data) => data.json())
+    .catch((error) => error);
+}
