@@ -14,7 +14,7 @@ class ProductDetails extends React.Component {
   }
 
   fetchItem = async () => {
-    const id = "MLB2181207788";
+    const { match: { params: { id } } } = this.props;
     const url = `https://api.mercadolibre.com/items/${id}`;
     const response = await fetch(url);
     const produto = await response.json();
