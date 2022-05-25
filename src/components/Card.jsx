@@ -10,7 +10,7 @@ class Card extends Component {
         <div>
           <img src={ thumbnail } alt={ title } width="200"/>
           <p data-testid="product-detail-name">{ title } { price }</p>
-          <Link to={`/product/${id}`} data-testid="product-detail-link">
+          <Link to={`/product/details/${id}`} data-testid="product-detail-link">
             Details
           </Link>
         </div>

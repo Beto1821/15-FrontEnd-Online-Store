@@ -1,20 +1,33 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { fetchItem } from '../services/api'
+// import { fetchItem } from '../services/api'
 
 class ProductDetails extends React.Component {
 
-  componentDidMount = async () => {
-    const produto = await fetchItem();
-    console.log(produto); 
+  state = {
+    produto: {},
+  };
+
+  componentDidMount = async() => {
+    await this.fetchItem();
+  }
+
+  fetchItem = async () => {
+    const id = "MLB2181207788";
+    const url = `https://api.mercadolibre.com/items/${id}`;
+    const response = await fetch(url);
+    const produto = await response.json();
+    this.setState({ produto });
   }
 
   render() {
-    const { id, title, thumbnail, price } = this.props;
+    const { produto: { title, price, thumbnail } } = this.state;
     return (
       <div>
-        <p data-testid="product-detail-name">{ title }</p>
+        <h3 data-testid="product-detail-name">{ title }</h3>
+        <img src={ thumbnail } alt={ title } width="200" />
+        <p>Valor: { price }</p>
         <Link to="/Cart"> Carrinho</Link>
       </div>
     );
@@ -22,10 +35,11 @@ class ProductDetails extends React.Component {
 }
 
 ProductDetails.propTypes = {
-  id: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  thumbnail: PropTypes.string.isRequired,
-  price: PropTypes.string.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
 };
 
 export default ProductDetails;
