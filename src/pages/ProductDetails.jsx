@@ -1,15 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Review from '../components/Review';
 // import { fetchItem } from '../services/api'
 
 class ProductDetails extends React.Component {
-
   state = {
     produto: {},
   };
 
-  componentDidMount = async() => {
+  componentDidMount = async () => {
     await this.fetchItem();
   }
 
@@ -27,8 +27,13 @@ class ProductDetails extends React.Component {
       <div>
         <h3 data-testid="product-detail-name">{ title }</h3>
         <img src={ thumbnail } alt={ title } width="200" />
-        <p>Valor: { price }</p>
+        <p>
+          Valor:
+          {' '}
+          { price }
+        </p>
         <Link to="/Cart"> Carrinho</Link>
+        <Review />
       </div>
     );
   }
