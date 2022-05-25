@@ -12,7 +12,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={ Main } />
           <Route path="/Cart" component={ Cart } />
-          <Route path="/product/:id" component={ ProductDetails } />
+          <Route path="/product/details/:id" component={ ProductDetails } />
         </Switch>
       </BrowserRouter>
     );
