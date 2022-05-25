@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { getCart } from '../services/cartStorage';
 import CartCard from '../components/CartProductCard';
 
@@ -24,6 +25,7 @@ class Cart extends React.Component {
           { ...cart[id] }
           key={ id }
         />))}
+        <Link to="/checkout" data-testid="checkout-products">Finalizar Compra</Link>
       </div>
     );
   }
