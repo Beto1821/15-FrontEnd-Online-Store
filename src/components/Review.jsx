@@ -8,13 +8,25 @@ class Review extends Component {
     comment: '',
   };
 
+  componentDidMount = async () => {
+    const { reviews } = this.state;
+    if (reviews instanceof Array) {
+      const rev = JSON.parse(localStorage.getItem('reviews'));
+      this.setState({
+        reviews: rev,
+      });
+    }
+    this.setState({
+      reviews: [],
+    });
+  }
+
   handleChange = ({ target }) => {
     const { name } = target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     this.setState(() => ({
       [name]: value,
     }));
-    console.log(name);
   };
 
   clickButton = async () => {
@@ -30,7 +42,11 @@ class Review extends Component {
           comment,
         },
       ],
-    }));
+    }),
+    () => {
+      const { reviews } = this.state;
+      localStorage.setItem('reviews', JSON.stringify(reviews));
+    });
   };
 
   render() {
@@ -124,13 +140,9 @@ class Review extends Component {
               {item.email}
             </p>
             <p>
-              rate
-              {' '}
               {item.rate}
             </p>
             <p>
-              comment
-              {' '}
               {item.comment}
             </p>
           </div>
