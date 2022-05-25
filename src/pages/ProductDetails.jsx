@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Review from '../components/Review';
 // import { fetchItem } from '../services/api'
 
 class ProductDetails extends React.Component {
@@ -32,6 +33,7 @@ class ProductDetails extends React.Component {
           { price }
         </p>
         <Link to="/Cart"> Carrinho</Link>
+        <Review />
       </div>
     );
   }
