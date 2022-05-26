@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Review from '../components/Review';
 import { addToCart } from '../services/cartStorage';
+import CartLink from '../components/CartLink';
 
 class ProductDetails extends React.Component {
   state = {
@@ -19,11 +19,13 @@ class ProductDetails extends React.Component {
     const response = await fetch(url);
     const produto = await response.json();
     this.setState({ produto });
+    console.log(produto);
   }
 
   render() {
     const { produto } = this.state;
     const { title, price, thumbnail } = produto;
+    const { updateCartLength } = this.props;
     return (
       <div>
         <h3 data-testid="product-detail-name">{ title }</h3>
@@ -33,16 +35,14 @@ class ProductDetails extends React.Component {
           {' '}
           { price }
         </p>
-        <Link
-          data-testid="shopping-cart-button"
-          to="/Cart"
-        >
-          Carrinho
-        </Link>
+        <CartLink { ...this.props } />
         <button
           type="submit"
           data-testid="product-detail-add-to-cart"
-          onClick={ () => addToCart(produto) }
+          onClick={ () => {
+            addToCart(produto);
+            updateCartLength();
+          } }
         >
           Add to Cart
         </button>
@@ -58,6 +58,7 @@ ProductDetails.propTypes = {
       id: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
+  updateCartLength: PropTypes.func.isRequired,
 };
 
 export default ProductDetails;

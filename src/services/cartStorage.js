@@ -4,9 +4,12 @@ export function getCart() {
 }
 
 export function addToCart(product) {
-  const { id } = product;
+  const { id, available_quantity: stock } = product;
   const products = getCart();
   if (Object.keys(products).some((key) => key === id)) {
+    if (products[id].amount === stock) {
+      return;
+    }
     products[id].amount += 1;
   } else {
     product.amount = 1;
