@@ -5,7 +5,7 @@ import { addToCart } from '../services/cartStorage';
 
 class Card extends Component {
   render() {
-    const { id, title, thumbnail, price } = this.props;
+    const { id, title, thumbnail, price, updateCartLength } = this.props;
     return (
       <div data-testid="product">
         <div>
@@ -22,7 +22,10 @@ class Card extends Component {
             type="button"
             data-testid="product-add-to-cart"
             className="add-to-cart"
-            onClick={ () => addToCart({ ...this.props }) }
+            onClick={ () => {
+              addToCart({ ...this.props });
+              updateCartLength();
+            } }
           >
             Add to cart
           </button>
@@ -37,6 +40,7 @@ Card.propTypes = {
   title: PropTypes.string.isRequired,
   thumbnail: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
+  updateCartLength: PropTypes.func.isRequired,
 };
 
 export default Card;

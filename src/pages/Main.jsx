@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Produtos from '../components/Categorias';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 import Card from '../components/Card';
+import CartLink from '../components/CartLink';
 
 class Main extends React.Component {
   state = {
@@ -33,7 +33,9 @@ class Main extends React.Component {
         <div data-testid="home-initial-message">
           <p> Digite algum termo de pesquisa ou escolha uma categoria. </p>
         </div>
-        <Link to="/Cart" data-testid="shopping-cart-button"> Carrinho de Compras</Link>
+        <CartLink
+          { ...this.props }
+        />
         <Produtos handleChange={ this.handleChange } />
         <input
           data-testid="query-input"
@@ -49,7 +51,11 @@ class Main extends React.Component {
         >
           Click
         </button>
-        { produtos.map((produto, index) => <Card { ...produto } key={ index } />)}
+        { produtos.map((produto, index) => (<Card
+          { ...produto }
+          key={ index }
+          { ...this.props }
+        />))}
       </div>
     );
   }
