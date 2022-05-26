@@ -19,6 +19,7 @@ class ProductDetails extends React.Component {
     const response = await fetch(url);
     const produto = await response.json();
     this.setState({ produto });
+    console.log(produto);
   }
 
   render() {

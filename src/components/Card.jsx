@@ -5,7 +5,8 @@ import { addToCart } from '../services/cartStorage';
 
 class Card extends Component {
   render() {
-    const { id, title, thumbnail, price, updateCartLength } = this.props;
+    const { id, title, thumbnail, price, updateCartLength,
+      shipping: { free_shipping: freeShip } } = this.props;
     return (
       <div data-testid="product">
         <div>
@@ -29,6 +30,7 @@ class Card extends Component {
           >
             Add to cart
           </button>
+          { freeShip && <p data-testid="free-shipping">Frete grátis </p>}
         </div>
       </div>
     );
@@ -41,6 +43,9 @@ Card.propTypes = {
   thumbnail: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   updateCartLength: PropTypes.func.isRequired,
+  shipping: PropTypes.shape({
+    free_shipping: PropTypes.bool.isRequired,
+  }).isRequired,
 };
 
 export default Card;
