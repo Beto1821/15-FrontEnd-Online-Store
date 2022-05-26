@@ -16,7 +16,11 @@ class Card extends React.Component {
 
   changeAmount = (op) => {
     let { amount } = this.state;
+    const { available_quantity: stock } = this.props;
     if (op === '+') {
+      if (amount === stock) {
+        return;
+      }
       amount += 1;
     } else if (amount > 1) {
       amount -= 1;
@@ -55,6 +59,7 @@ class Card extends React.Component {
 Card.propTypes = {
   title: PropTypes.string.isRequired,
   amount: PropTypes.number.isRequired,
+  available_quantity: PropTypes.number.isRequired,
 };
 
 export default Card;
