@@ -53,7 +53,7 @@ class Review extends Component {
     return (
       <div>
         <h2>Avaliações</h2>
-        <input
+        <inputw
           type="text"
           placeholder="E-mail"
           data-testid="product-detail-email"
